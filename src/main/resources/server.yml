@@ -1,0 +1,31 @@
+# Spring properties
+spring:
+  application:
+    name: customer-account  # Service registers under this name
+#  cloud:
+#    stream:
+#      defaultBinder: kafka
+#      kafka:
+#        binder:
+#          broker: 127.0.0.1
+#          defaultBrokerPort: 9092
+     
+#  http:
+#     encoding: # Set the default encoding
+#         charset: UTF-8
+#         enabled: true
+
+# Map the error path to error template (for Thymeleaf)
+error:
+  path: /error
+
+# HTTP Server
+server:
+  port: 2222   # HTTP (Tomcat) port
+#  port: 2222
+
+
+#management:
+#  security:
+#    roles: USER
+##    enabled: false
