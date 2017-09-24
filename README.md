@@ -38,3 +38,7 @@ The following are the steps to install this application **including the postman 
 >5. You can easily import postman collection given the following link:
 	> - [Postman collection link](https://www.getpostman.com/collections/395c065a5102667859b4)
 >6. **Enjoy :)**	
+
+
+----------
+
