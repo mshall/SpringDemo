@@ -2,9 +2,13 @@ package com.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountDTO {
 	@JsonProperty("code")
 	private int code;
@@ -19,4 +23,6 @@ public class AccountDTO {
 	private String currency;
 	@JsonProperty("accountType")
 	private String accountType;
+	@JsonProperty("amount")
+	private double amount;
 }

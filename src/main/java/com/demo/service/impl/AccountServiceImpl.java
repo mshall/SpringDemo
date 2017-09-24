@@ -1,5 +1,7 @@
 package com.demo.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import com.demo.dto.Account.AccountBuilder.AccountType;
 import com.demo.dto.Account.AccountBuilder.Currency;
 import com.demo.dto.AccountDTO;
 import com.demo.service.AccountService;
+import com.demo.utils.DozerUtils;
 import com.demo.utils.JsonUtils;
 
 @Service
@@ -22,11 +25,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public AccountDTO getAccountDetails(String accountId) {
 		Account account = JsonUtils.findObject(accountId, Account.class);
-		AccountDTO accountDTO = new AccountDTO();	
-		if(account == null){
+		AccountDTO accountDTO = new AccountDTO();
+		if (account == null) {
 			accountDTO.setCode(404);
 			accountDTO.setMessage("Error, Account doesn't exists");
-		}else{
+		} else {
 			accountDTO.setCode(101);
 			accountDTO.setMessage("Account has been successfully retrieved");
 			dozerMapper.map(account, accountDTO);
@@ -63,8 +66,16 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public boolean updateAccount(AccountDTO account) {
-		return false;
+	public AccountDTO updateAccount(String accountId, AccountDTO account) {
+		AccountDTO accountDTO = JsonUtils.updateAccount(accountId, account,Account.class);
+		return accountDTO;
+	}
+
+	@Override
+	public List<AccountDTO> getAllAccounts() {
+		ArrayList<Account> accounts = new ArrayList<>(new JsonUtils().getAllJsonObjects(Account.class));
+		List<AccountDTO> accountDTOs = new DozerUtils().mapList(dozerMapper, accounts, AccountDTO.class);
+		return accountDTOs;
 	}
 
 }

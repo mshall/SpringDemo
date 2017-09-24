@@ -2,6 +2,7 @@ package com.demo.config;
 
 import javax.ws.rs.ApplicationPath;
 
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,8 @@ public class JerseyConfig extends ResourceConfig {
 	}
 
 	private void registerEndpoints() {
+		register(JacksonFeature.class);
 		register(AccountRestService.class);
+		packages("com.demo", "com.demo.controller", "com.demo.dto");
 	}
 }

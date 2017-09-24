@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
@@ -12,10 +13,9 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.demo.dto.Account;
+import com.demo.annotation.PATCH;
 import com.demo.dto.AccountDTO;
 import com.demo.service.AccountService;
-import com.demo.utils.JsonUtils;
 
 @Path("/accounts/account")
 public class AccountRestService {
@@ -34,12 +34,6 @@ public class AccountRestService {
 	public Response getAccount(@PathParam("accountId") String accountId) {
 		Response response = null;
 		AccountDTO account = accountService.getAccountDetails(accountId);
-		// if (account == null) {
-		// response = Response.status(200).entity(new ErrorResponse(404,
-		// "Account not found")).build();
-		// } else {
-		// response = Response.status(200).entity(account).build();
-		// }
 		response = Response.status(200).entity(account).build();
 		return response;
 	}
@@ -50,9 +44,34 @@ public class AccountRestService {
 	public Response createAccount(AccountDTO account) {
 		Response response = null;
 		AccountDTO accountDTO = accountService.addAccount(account);
-
 		response = Response.status(200).entity(accountDTO).build();
 		return response;
 	}
 
+	@GET
+	@Produces("application/json")
+	public Response getAllAccounts() {
+		Response response = null;
+		List<AccountDTO> accounts = accountService.getAllAccounts();
+		response = Response.status(200).entity(accounts).build();
+		return response;
+	}
+
+	@POST
+	@Path("/{accountId}")
+	@Produces("application/json")
+	public Response updateAccount(@PathParam("accountId") String accountId, AccountDTO accountDTO) {
+		Response response = null;
+		AccountDTO account = accountService.updateAccount(accountId, accountDTO);
+		response = Response.status(200).entity(account).build();
+		return response;
+	}
+
+	@POST
+	@Path("/patch")
+	@Consumes("application/json-patch+json")
+	public AccountDTO patch(AccountDTO input) {
+		System.out.println(input.getCustomerName() + " | " + input.getAccountType());
+		return input;
+	}
 }

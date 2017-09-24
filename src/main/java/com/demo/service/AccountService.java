@@ -1,6 +1,7 @@
 package com.demo.service;
 
-import com.demo.dto.Account;
+import java.util.List;
+
 import com.demo.dto.AccountDTO;
 
 public interface AccountService {
@@ -9,5 +10,8 @@ public interface AccountService {
 
 	AccountDTO addAccount(AccountDTO account);
 
-	boolean updateAccount(AccountDTO account);
+	AccountDTO updateAccount(String accountId, AccountDTO account);
+
+	List<AccountDTO> getAllAccounts();
+
 }
